@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>非同期無視の失敗例</title>
+</head>
+<body>
+  <h2>非同期無視の失敗例</h2>
+  <p id="log">読み込み中...</p>
+
+  <script>
+    // グローバル変数で定義
+    let userData = null;
+
+    // fetchでデータを取得するが、非同期なので「あとから入る」
+    fetch("https://jsonplaceholder.typicode.com/users/1")
+      .then(response => response.json())
+      .then(data => {
+        userData = data;
+      });
+
+    //  ?. を使えば、エラーを起こさずに undefined を返す
+    document.getElementById("log").textContent = "名前: " + userData?.name;
+  </script>
+</body>
+</html>

@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <title>テンプレートリテラル</title>
+</head>
+<body>
+  <h1>テンプレートリテラル</h1>
+
+  <h2>通常の文字列連結（+）</h2>
+  <div id="normal"></div>
+
+  <h2>テンプレートリテラル（` `）</h2>
+  <div id="template"></div>
+
+  <script>
+    const userName = "佐藤";
+    const today = "月曜日";
+
+    // 通常の文字列連結（+演算子）
+    const normalMsg = "こんにちは、" + userName + "さん！今日は" + today + "です。";
+    document.getElementById("normal").textContent = normalMsg;
+
+    // テンプレートリテラル(`バッククォートを使う)
+    const templateMsg = `こんにちは、${userName}さん！今日は${today}です。`;
+    document.getElementById("template").textContent = templateMsg;
+  </script>
+</body>
+</html>

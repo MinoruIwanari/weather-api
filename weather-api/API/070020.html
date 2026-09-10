@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <title>地域コードから天気予報</title>
+</head>
+
+<body>
+  <h2>地域コードから天気予報</h2>
+  <p>東京都（地点コード: <strong>130000</strong>）の天気予報を取得します。</p>
+  <pre id="log">通信中...</pre>
+
+  <script>
+    fetch("https://www.jma.go.jp/bosai/forecast/data/forecast/130000.json")
+      .then(response => {
+        if (!response.ok) {
+          throw new Error("通信エラー: " + response.status);
+        }
+        return response.json();
+      })
+      .then(data => {
+        document.getElementById("log").textContent = JSON.stringify(data, null, 2);
+      })
+      .catch(error => {
+        document.getElementById("log").textContent = `エラー: ${error.message}`;
+      });
+  </script>
+</body>
+</html>

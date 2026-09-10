@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>無名関数とは？</title>
+</head>
+<body>
+  <button id="btn">クリックしてね</button>
+  <p id="msg">ここに表示されます</p>
+
+  <script>
+    // 関数に名前をつけず、その場で定義して渡す（＝無名関数）
+    document.getElementById("btn").addEventListener("click", function () {
+      document.getElementById("msg").textContent = "無名関数が実行されました！";
+    });
+  </script>
+</body>
+</html>

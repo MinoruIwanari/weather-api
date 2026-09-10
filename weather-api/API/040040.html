@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>アロー関数に書き換える</title>
+</head>
+<body>
+  <button id="btn">クリックしてね</button>
+  <p id="msg">ここに表示されます</p>
+
+  <script>
+    // 無名関数をアロー関数に書き換えた
+    document.getElementById("btn").addEventListener("click", () => {
+      document.getElementById("msg").textContent = "アロー関数が実行されました！";
+    });
+  </script>
+</body>
+</html>

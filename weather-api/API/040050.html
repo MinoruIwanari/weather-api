@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>引数なしのアロー関数</title>
+</head>
+<body>
+  <h2>引数なしのアロー関数</h2>
+  <button id="btn">あいさつする</button>
+  <p id="output">ここに表示されます</p>
+
+  <script>
+    // 引数なしのアロー関数
+    const sayHello = () => {
+      return "こんにちは！";
+    };
+    
+    // イベントリスナーでアロー関数を呼ぶ
+    document.getElementById("btn").addEventListener("click", () => {
+      const message = sayHello(); // 引数なしのアロー関数を呼び出して、戻り値を取得
+      document.getElementById("output").textContent = message;
+    });
+  </script>
+</body>
+</html>

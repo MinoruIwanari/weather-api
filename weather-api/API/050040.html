@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>JSONデータを読み取る</title>
+</head>
+<body>
+  <h2>JSONデータを読み取る</h2>
+  <p id="log">読み込み中...</p>
+
+  <script>
+    // return を明示して書く
+    fetch("https://jsonplaceholder.typicode.com/users/1")
+      .then(response => {
+        console.log("レスポンスオブジェクト:", response);
+        return response.json(); // ← JSONに変換
+      })
+      .then(data => {
+        console.log("JSONデータ:", data);
+        document.getElementById("log").textContent = "名前: " + data.name;
+      });
+  </script>
+</body>
+</html>

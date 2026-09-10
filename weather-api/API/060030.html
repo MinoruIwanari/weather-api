@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <title>住所をhtmlに自動入力</title>
+</head>
+<body>
+  <h2>住所をhtmlに自動入力</h2>
+  <form id="addressForm" action="#" method="post">
+    <label>郵便番号：
+      <input type="text" id="zipcode" name="zipcode" maxlength="7" />
+      <button type="button" id="searchAddress">住所取得</button>
+    </label><br><br>
+
+    <label>都道府県：
+      <input type="text" id="pref" name="pref" readonly />
+    </label><br><br>
+
+    <label>市区町村：
+      <input type="text" id="city" name="city" readonly />
+    </label><br><br>
+
+    <label>町域：
+      <input type="text" id="town" name="town" readonly />
+    </label><br><br>
+
+    <button type="submit">送信</button>
+  </form>
+
+  <script>
+    document.getElementById("searchAddress").addEventListener("click", () => {
+      const zip = document.getElementById("zipcode").value;
+
+      // バリデーション: 7桁の数字かどうか
+      if (!/^\d{7}$/.test(zip)) {
+        alert("郵便番号は7桁の数字で入力してください");
+        return;
+      }
+
+      fetch(`https://zipcloud.ibsnet.co.jp/api/search?zipcode=${zip}`)
+        .then(response => {
+          if (!response.ok) {
+            throw new Error("通信エラー: " + response.status);
+          }
+          return response.json();
+        })
+        .then(data => {
+          const result = data.results[0];
+          document.getElementById("pref").value = result.address1;
+          document.getElementById("city").value = result.address2;
+          document.getElementById("town").value = result.address3;
+        })
+        .catch(error => {
+          alert("エラーが発生しました: " + error.message);
+        });
+    });
+  </script>
+</body>
+</html>

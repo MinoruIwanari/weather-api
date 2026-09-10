@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <title>郵便番号から住所取得</title>
+  </head>
+
+  <body>
+    <h2>郵便番号から住所取得</h2>
+    <p>
+      郵便番号
+      <strong>1000001</strong>（東京都千代田区）から住所情報を取得します。
+    </p>
+    <pre id="log">通信中...</pre>
+
+    <script>
+      fetch("https://zipcloud.ibsnet.co.jp/api/search?zipcode=1000001")
+        .then((response) => {
+          if (!response.ok) {
+            throw new Error("通信エラー: " + response.status);
+          }
+          return response.json();
+        })
+        .then((data) => {
+          document.getElementById("log").textContent = JSON.stringify(
+            data,
+            null,
+            2
+          );
+        })
+        .catch((error) => {
+          document.getElementById("log").textContent =
+            "エラー: " + error.message;
+        });
+    </script>
+  </body>
+</html>

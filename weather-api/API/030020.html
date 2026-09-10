@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>要素を取得して書き換える</title>
+</head>
+<body>
+  <h2>textContent</h2>
+  <p id="text">おはよう</p>
+
+  <h2>innerHTML</h2>
+  <p id="html">こんにちは</p>
+
+  <h2>value（input要素）</h2>
+  <input type="text" id="inputBox" value="はじめまして">
+
+  <br><br>
+  <button onclick="
+    console.log(document.getElementById('text'));
+    document.getElementById('text').textContent = 'Good morning';
+    document.getElementById('html').innerHTML = '<strong>Hello</strong>';
+    document.getElementById('inputBox').value = 'Nice to meet you';
+  ">
+    すべて書き換える
+  </button>
+</body>
+</html>

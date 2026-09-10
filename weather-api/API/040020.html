@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>イベントリスナー</title>
+</head>
+<body>
+  <button id="btn">クリックしてね</button>
+  <p id="msg">ここに表示されます</p>
+
+  <script>
+    // 関数の定義（名前付き）
+    function handleClick() {
+      document.getElementById("msg").textContent = "こんにちは！発火しました。";
+    }
+
+    // イベントリスナーに関数名を渡す
+    document.getElementById("btn").addEventListener("click", handleClick);
+  </script>
+</body>
+</html>

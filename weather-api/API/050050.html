@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>Fetch関数のエラー処理</title>
+</head>
+<body>
+  <h2>Fetch関数のエラー処理</h2>
+  <p id="log">読み込み中...</p>
+
+  <script>
+    fetch("https://jsonplaceholder.typicode.com/invalid-url")
+      .then(response => {
+        if (!response.ok) {
+          throw new Error("通信エラー: " + response.status);
+        }
+        return response.json();
+      })
+      .then(data => {
+        document.getElementById("log").textContent = "名前: " + data.name;
+      })
+      .catch(error => {
+        document.getElementById("log").textContent = "エラー: " + error.message;
+      });
+  </script>
+</body>
+</html>

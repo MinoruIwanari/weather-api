@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>無名関数とコールバック</title>
+</head>
+<body>
+  <h2>無名関数とコールバック</h2>
+  <button id="btn">あいさつする</button>
+  <p id="log"></p>
+
+  <script>
+    function sayHello(callback) {
+      document.getElementById("log").textContent = "こんにちは！";
+      // 1秒後にcallbackを実行
+      setTimeout(callback, 1000);
+    }
+
+    document.getElementById("btn").addEventListener("click", function() {
+      sayHello(function() {
+        document.getElementById("log").textContent = "挨拶が終わりました！";
+      });
+    });
+  </script>
+</body>
+</html>

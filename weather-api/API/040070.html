@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>returnを省略したアロー関数</title>
+</head>
+<body>
+  <h2>returnを省略したアロー関数</h2>
+  <p id="result"></p>
+
+  <script>
+    // 通常のアロー関数
+    const getDouble = n => {
+      return n * 2;
+    };
+
+    // return省略記法（returnのみの1行ならOK）
+    const getTriple = n => n * 3;
+
+    // 実行して結果を表示
+    const double = getDouble(4); // → 8
+    const triple = getTriple(4); // → 12
+
+    document.getElementById("result").textContent =
+      "2倍: " + double + " / 3倍: " + triple;
+  </script>
+</body>
+</html>

@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>コールバック関数の仕組み</title>
+</head>
+<body>
+  <h2>コールバック関数の仕組み</h2>
+  <button id="btn">あいさつする</button>
+  <p id="log"></p>
+
+  <script>
+    function afterHello() {
+      document.getElementById("log").textContent = "挨拶が終わりました！";
+    }
+
+    function sayHello(callback) {
+      document.getElementById("log").textContent = "こんにちは！";
+      // 1秒後にcallbackを呼ぶ（あとから呼ばれる例）
+      setTimeout(callback, 1000);
+    }
+
+    document.getElementById("btn").addEventListener("click", function() {
+      sayHello(afterHello);
+    });
+  </script>
+</body>
+</html>

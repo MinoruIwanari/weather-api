@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <title>天気予報と服装アドバイス</title>
+    <meta charset="UTF-8" />
+  </head>
+  <body>
+    <h1>天気予報と服装アドバイス</h1>
+
+    <form id="weatherForm" method="get">
+      <p>
+        <label for="wcode">地域</label>
+        <select name="wcode" id="wcode">
+          <option value="016000">札幌</option>
+          <option value="130000">東京</option>
+          <option value="270000">大阪</option>
+          <option value="230000">名古屋</option>
+          <option value="140000">横浜</option>
+          <option value="110000">熊谷</option>
+          <option value="040000">仙台</option>
+          <option value="340000">広島</option>
+          <option value="400000">福岡</option>
+        </select>
+      </p>
+    </form>
+
+    <button id="weather">取得</button>
+    <hr />
+    <div id="result"></div>
+
+    <script>
+      const weatherBtn = document.getElementById("weather");
+      const resultDiv = document.getElementById("result");
+
+      weatherBtn.addEventListener("click", () => {
+        const code = document.getElementById("wcode").value;
+
+        fetch(`https://www.jma.go.jp/bosai/forecast/data/forecast/${code}.json`)
+          .then((response) => {
+            if (!response.ok) {
+              throw new Error("通信エラー");
+            }
+            return response.json();
+          })
+          .then((data) => {
+            const weatherText = data[0].timeSeries[0].areas[0].weathers[1]; // 明日の天気
+
+            const tempsMin = data[1].timeSeries[1].areas[0].tempsMin[1];
+            const tempsMax = data[1].timeSeries[1].areas[0].tempsMax[1];
+
+            let html = `
+          <strong>明日の天気：</strong> ${weatherText}<br>
+          <strong>明日の最低気温：</strong> ${tempsMin}℃<br>
+          <strong>明日の最高気温：</strong> ${tempsMax}℃<br>
+        `;
+
+            //服装アドバイス
+            let fashionAdvice = "";
+            const max = parseInt(tempsMax);
+            const min = parseInt(tempsMin);
+
+            if (!isNaN(max) && !isNaN(min)) {
+              if (max >= 30) {
+                fashionAdvice =
+                  "猛暑日になりそうです。通気性の良い半袖＋帽子をおすすめします。";
+              } else if (max >= 25) {
+                fashionAdvice =
+                  "暑い一日です。半袖シャツやポロシャツが快適です。";
+              } else if (max >= 20) {
+                fashionAdvice =
+                  "昼間は過ごしやすいですが、夜は冷えるかも。長袖シャツ＋羽織を用意しておきましょう。";
+              } else if (max >= 15) {
+                fashionAdvice =
+                  "少し肌寒いです。薄手のセーターやカーディガンがおすすめです。";
+              } else {
+                fashionAdvice =
+                  "寒い一日になりそうです。コートやマフラーなどしっかり防寒を。";
+              }
+
+              if (max - min >= 10) {
+                fashionAdvice +=
+                  " <br>朝晩は冷えるので、帰宅時用に上着を持っていくと安心です。";
+              }
+
+              html += `<p><strong>服装アドバイス：</strong>${fashionAdvice}</p>`;
+            }
+
+            resultDiv.innerHTML = html;
+          })
+          .catch((error) => {
+            alert("エラーが発生しました: " + error.message);
+          });
+      });
+    </script>
+  </body>
+</html>

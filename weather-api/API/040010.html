@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>関数の基本</title>
+</head>
+<body>
+  <h2>関数を定義して呼び出す</h2>
+
+  <button onclick="showMessage()">メッセージを表示</button>
+  <p id="output">ここにメッセージが出ます</p>
+
+  <script>
+    // 名前付き関数の定義(button要素のonclick属性で呼び出している)
+    function showMessage() {
+      document.getElementById("output").textContent = "こんにちは！関数が呼び出されました。";
+    }
+  </script>
+</body>
+</html>

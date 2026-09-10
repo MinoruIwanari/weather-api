@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <title>天気予報をhtmlに自動入力</title>
+  </head>
+  <body>
+    <h2>天気予報をhtmlに自動入力</h2>
+    <form id="weatherForm" method="get">
+      <p>
+        <label for="wcode">地域</label>
+        <select name="wcode" id="wcode">
+          <option value="016000">札幌</option>
+          <option value="130000">東京</option>
+          <option value="270000">大阪</option>
+          <option value="230000">名古屋</option>
+          <option value="140000">横浜</option>
+          <option value="110000">熊谷</option>
+          <option value="040000">仙台</option>
+          <option value="340000">広島</option>
+          <option value="400000">福岡</option>
+        </select>
+      </p>
+    </form>
+
+    <button id="weather">取得</button>
+    <hr />
+    <div id="result"></div>
+
+    <script>
+      const weatherBtn = document.getElementById("weather");
+      const resultDiv = document.getElementById("result");
+
+      weatherBtn.addEventListener("click", () => {
+        const code = document.getElementById("wcode").value;
+
+        fetch(`https://www.jma.go.jp/bosai/forecast/data/forecast/${code}.json`)
+          .then((response) => {
+            if (!response.ok) {
+              throw new Error("通信エラー: " + response.status);
+            }
+            return response.json();
+          })
+          .then((data) => {
+            const weathers = data[0].timeSeries[0].areas[0].weathers;
+            const html = `
+              <strong>本日の天気：</strong> ${weathers[0]}<br>
+              <strong>明日の天気：</strong> ${weathers[1]}<br>
+            `;
+            resultDiv.innerHTML = html;
+          })
+          .catch((error) => {
+            alert("エラーが発生しました: " + error.message);
+          });
+      });
+    </script>
+  </body>
+</html>
