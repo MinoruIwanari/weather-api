@@ -17,6 +17,7 @@ import { ref } from 'vue';
     setTimeout(callback, 1000);
   }
 
+
 </script>
 <template>
   <h2>関数を定義して呼び出す</h2>
